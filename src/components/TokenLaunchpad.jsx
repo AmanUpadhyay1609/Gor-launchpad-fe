@@ -123,7 +123,7 @@ return (
           textShadow: "0 2px 4px rgba(0,0,0,0.1)",
         }}
       >
-        Solana Token Launchpad
+        Gorbagana Token Launchpad
       </h1>
 
       <div style={{ position: "relative", marginBottom: "20px" }}>
@@ -144,7 +144,7 @@ return (
             cursor: "pointer",
           }}
         >
-          <option value="solana-devnet">solana-devnet</option>
+          <option value="gorbagana-devnet">gorbagana-devnet</option>
         </select>
         <div
           style={{
