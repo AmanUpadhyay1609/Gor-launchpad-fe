@@ -52,14 +52,19 @@ export async function mintGorbToken({
   decimals: string | number;
   uri: string;
 }) {
+  console.log("[mintGorbToken] Starting token mint process...");
+  console.log("Params:", { name, symbol, supply, decimals, uri });
   const payer = wallet;
   const mintKeypair = Keypair.generate();
   const mint = mintKeypair.publicKey;
   const extensions = [ExtensionType.MetadataPointer];
   const mintLen = getMintLen(extensions);
+  console.log("Mint account size (with extensions):", mintLen);
   const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(mintLen);
+  console.log("Rent exemption amount:", rentExemptionAmount);
 
   // 1. Create mint account and initialize
+  console.log("Creating and initializing mint account...");
   const createAndInitializeTx = new Transaction().add(
     SystemProgram.createAccount({
       fromPubkey: payer.publicKey,
@@ -89,6 +94,8 @@ export async function mintGorbToken({
   const signedTx = await wallet.signTransaction(createAndInitializeTx);
   const createMintSignature = await connection.sendRawTransaction(signedTx.serialize(), { skipPreflight: true });
   await connection.confirmTransaction(createMintSignature, "confirmed");
+  console.log("Mint account created and initialized! Signature:", createMintSignature);
+  console.log("Mint address:", mint.toBase58());
 
   // 2. Initialize metadata
   const accountInfo = await connection.getAccountInfo(mint);
@@ -98,6 +105,10 @@ export async function mintGorbToken({
     const additionalRent =
       (await connection.getMinimumBalanceForRentExemption(newSize)) -
       (await connection.getMinimumBalanceForRentExemption(accountInfo.data.length));
+    console.log("Current mint account size:", accountInfo.data.length);
+    console.log("Metadata space needed:", metadataSpace);
+    console.log("Total size needed:", newSize);
+    console.log("Additional rent needed:", additionalRent);
     if (additionalRent > 0) {
       const transferIx = SystemProgram.transfer({
         fromPubkey: payer.publicKey,
@@ -111,6 +122,7 @@ export async function mintGorbToken({
       const signedTx2 = await wallet.signTransaction(transferTx);
       const sig2 = await connection.sendRawTransaction(signedTx2.serialize(), { skipPreflight: true });
       await connection.confirmTransaction(sig2, "confirmed");
+      console.log("Additional rent transferred. Signature:", sig2);
     }
     const initMetadataInstruction = createInitializeInstruction({
       programId: TOKEN22_PROGRAM,
@@ -129,9 +141,13 @@ export async function mintGorbToken({
     const signedTx3 = await wallet.signTransaction(metadataTx);
     const sig3 = await connection.sendRawTransaction(signedTx3.serialize(), { skipPreflight: true });
     await connection.confirmTransaction(sig3, "confirmed");
+    console.log("Metadata initialized! Signature:", sig3);
+  } else {
+    console.warn("Could not fetch mint account info for metadata initialization.");
   }
 
   // 3. Create associated token account and mint tokens
+  console.log("Creating associated token account...");
   const associatedToken = getAssociatedTokenAddressSync(
     mint,
     payer.publicKey,
@@ -139,6 +155,7 @@ export async function mintGorbToken({
     TOKEN22_PROGRAM,
     ASSOCIATED_TOKEN_PROGRAM
   );
+  console.log("Associated token address:", associatedToken.toBase58());
   const createATAIx = await getOrCreateAssociatedTokenAccount(
     connection,
     payer,
@@ -150,7 +167,9 @@ export async function mintGorbToken({
     TOKEN22_PROGRAM,
     ASSOCIATED_TOKEN_PROGRAM
   );
+  console.log("Token account created:", createATAIx.address.toBase58());
   const supplyBigInt = BigInt(supply) * BigInt(10 ** Number(decimals));
+  console.log(`Minting ${supplyBigInt.toString()} tokens to ${createATAIx.address.toBase58()}...`);
   const mintToSig = await mintTo(
     connection,
     payer,
@@ -162,6 +181,7 @@ export async function mintGorbToken({
     { commitment: "confirmed" },
     TOKEN22_PROGRAM
   );
+  console.log("Tokens minted! Signature:", mintToSig);
   return {
     mintAddress: mint.toBase58(),
     tokenAccount: createATAIx.address.toBase58(),
