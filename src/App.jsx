@@ -12,19 +12,15 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 function App() {
   return (
-    <div style={{width: "90vw"}}>
+    <div className="min-h-screen w-full transition-colors duration-300">
       <ConnectionProvider endpoint={"https://rpc.gorbchain.xyz"}>
         <WalletProvider wallets={[]} autoConnect>
             <WalletModalProvider>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                padding: 20
-              }}>
+              <div className="flex justify-between items-center px-6 py-4 w-full max-w-5xl mx-auto">
                 <WalletMultiButton />
                 <WalletDisconnectButton />
               </div>
-              <TokenLaunchpad></TokenLaunchpad>
+              <TokenLaunchpad />
             </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>

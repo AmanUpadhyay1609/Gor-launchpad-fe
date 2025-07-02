@@ -17,7 +17,7 @@ export function TokenLaunchpad() {
   const { connection } = useConnection();
   const wallet = useWallet();
 
-  const [network, setNetwork] = useState("solana-devnet");
+  const [network, setNetwork] = useState("gorbagana-devnet");
   const { previousTokens, loading, error } = usePreviousTokens(wallet);
   const [balance, setBalance] = useState(0);
   const [darkMode, setDarkMode] = useState(() => {
@@ -113,13 +113,13 @@ export function TokenLaunchpad() {
         <div className="flex flex-col sm:flex-row items-center justify-between w-full mb-6 gap-4">
           <div className="flex items-center gap-4">
             <img src="https://www.gorbchain.xyz/images/logo.png" alt="Gorbagana Mascot" className="w-16 h-16 rounded-full bg-gorb-green-light shadow object-contain" style={{maxHeight: '64px', maxWidth: '64px'}} />
-            <button
+            {/* <button
               className="px-4 py-2 rounded-lg font-bold text-white bg-gorb-green dark:bg-gorb-green-dark shadow hover:bg-gorb-green-dark dark:hover:bg-gorb-green"
               onClick={() => setDarkMode((d) => !d)}
               aria-label="Toggle dark mode"
             >
               {darkMode ? '🌙 Dark Mode' : '☀️ Light Mode'}
-            </button>
+            </button> */}
           </div>
           <div className="flex gap-2 mt-2 sm:mt-0">
             <button
@@ -139,13 +139,13 @@ export function TokenLaunchpad() {
         <div className="gorb-card w-full max-w-xl flex flex-col items-center">
           {activeTab === 'token' ? (
             <>
-              <h1 className="text-3xl font-extrabold text-gorb-green-dark dark:text-gorb-green mb-4 text-center">Solana Token Launchpad</h1>
+              <h1 className="text-3xl font-extrabold text-gorb-green-dark dark:text-gorb-green mb-4 text-center">Gorbagana Token Launchpad</h1>
               <select
                 value={network}
                 onChange={(e) => setNetwork(e.target.value)}
                 className="border-2 border-gorb-green rounded-gorb px-4 py-2 mb-4 bg-white dark:bg-gorb-bg-dark text-gorb-accent dark:text-white w-full"
               >
-                <option value="solana-devnet">solana-devnet</option>
+                <option value="gorbagana-devnet">gorbagana-devnet</option>
                 {/* <option value="solana-mainnet">solana-mainnet</option> */}
               </select>
               <input
@@ -199,7 +199,7 @@ export function TokenLaunchpad() {
             </>
           ) : (
             <>
-              <h1 className="text-3xl font-extrabold text-gorb-green-dark dark:text-gorb-green mb-4 text-center">Solana NFT Launchpad</h1>
+              <h1 className="text-3xl font-extrabold text-gorb-green-dark dark:text-gorb-green mb-4 text-center">Gorbagana NFT Launchpad</h1>
               <input
                 className="inputText block w-full border-2 border-gorb-green rounded-gorb px-4 py-3 mb-3 bg-white dark:bg-gorb-bg-dark text-gorb-accent dark:text-white"
                 type="text"
