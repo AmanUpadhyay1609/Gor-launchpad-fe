@@ -1,0 +1,228 @@
+/* Gorbagana Theme - Light Greenish, Modern, Meme Vibes */
+:root {
+  --gorb-green: #7CFFB2;
+  --gorb-green-dark: #4be38a;
+  --gorb-green-light: #eafff4;
+  --gorb-accent: #1a1a1a;
+  --gorb-bg: #f8fff9;
+  --gorb-border: #b2f5d6;
+  --gorb-shadow: 0 2px 16px 0 rgba(124,255,178,0.10);
+  --gorb-radius: 18px;
+  --gorb-font: 'Inter', 'Avenir', 'Helvetica', 'Arial', sans-serif;
+}
+
+body {
+  background: var(--gorb-bg);
+  color: #1a1a1a;
+  font-family: var(--gorb-font);
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--gorb-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  color: var(--gorb-green-dark);
+  font-family: var(--gorb-font);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 0.5em;
+}
+
+input.inputText {
+  border: 2px solid var(--gorb-green);
+  border-radius: var(--gorb-radius);
+  padding: 16px 12px;
+  width: 320px;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  background: #fff;
+  color: #1a1a1a;
+  transition: border-color 0.2s;
+}
+input.inputText:focus {
+  border-color: var(--gorb-green-dark);
+  outline: none;
+}
+
+.btn, button {
+  background: linear-gradient(90deg, var(--gorb-green) 60%, var(--gorb-green-dark) 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--gorb-radius);
+  padding: 16px 32px;
+  font-size: 1.1em;
+  font-weight: 700;
+  box-shadow: var(--gorb-shadow);
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn:hover, button:hover {
+  background: linear-gradient(90deg, var(--gorb-green-dark) 60%, var(--gorb-green) 100%);
+  box-shadow: 0 4px 24px 0 rgba(124,255,178,0.18);
+}
+
+select {
+  border: 2px solid var(--gorb-green);
+  border-radius: var(--gorb-radius);
+  padding: 10px 18px;
+  font-size: 1em;
+  background: #fff;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: var(--gorb-radius);
+  box-shadow: var(--gorb-shadow);
+  margin: 24px 0;
+  overflow: hidden;
+}
+th, td {
+  border: none;
+  padding: 16px 12px;
+  text-align: left;
+}
+th {
+  background: var(--gorb-green-light);
+  color: var(--gorb-accent);
+  font-weight: 700;
+}
+td {
+  color: #222;
+}
+tr:nth-child(even) td {
+  background: var(--gorb-green-light);
+}
+tr:hover td {
+  background: var(--gorb-green);
+  color: #fff;
+}
+
+/* Card style for sections */
+.gorb-card {
+  background: #fff;
+  border-radius: var(--gorb-radius);
+  box-shadow: var(--gorb-shadow);
+  padding: 32px 24px;
+  margin: 24px 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Mascot/logo (optional) */
+.gorb-mascot {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gorb-green-light);
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px 0 rgba(124,255,178,0.12);
+}
+
+/* Misc */
+::-webkit-scrollbar-thumb {
+  background: var(--gorb-green);
+  border-radius: 8px;
+}
+::-webkit-scrollbar {
+  background: var(--gorb-green-light);
+  width: 8px;
+}
+
+/* Dark mode variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gorb-bg: #181f1a;
+    --gorb-green: #7CFFB2;
+    --gorb-green-dark: #4be38a;
+    --gorb-green-light: #1e2b22;
+    --gorb-accent: #fff;
+    --gorb-border: #2e4d3a;
+    --gorb-shadow: 0 2px 16px 0 rgba(124,255,178,0.10);
+    color-scheme: dark;
+  }
+  body {
+    background: var(--gorb-bg);
+    color: #fff;
+  }
+  .gorb-card {
+    background: #232d25;
+    color: #fff;
+  }
+  input.inputText, select {
+    background: #232d25;
+    color: #fff;
+    border-color: var(--gorb-green-dark);
+  }
+  table {
+    background: #232d25;
+    color: #fff;
+  }
+  th {
+    background: var(--gorb-green-light);
+    color: #fff;
+  }
+  tr:nth-child(even) td {
+    background: #232d25;
+  }
+  tr:hover td {
+    background: var(--gorb-green-dark);
+    color: #181f1a;
+  }
+}
+
+/* Manual dark mode override */
+.dark {
+  --gorb-bg: #181f1a;
+  --gorb-green: #7CFFB2;
+  --gorb-green-dark: #4be38a;
+  --gorb-green-light: #1e2b22;
+  --gorb-accent: #fff;
+  --gorb-border: #2e4d3a;
+  --gorb-shadow: 0 2px 16px 0 rgba(124,255,178,0.10);
+  color-scheme: dark;
+}
+.dark body {
+  background: var(--gorb-bg);
+  color: #fff;
+}
+.dark .gorb-card {
+  background: #232d25;
+  color: #fff;
+}
+.dark input.inputText, .dark select {
+  background: #232d25;
+  color: #fff;
+  border-color: var(--gorb-green-dark);
+}
+.dark table {
+  background: #232d25;
+  color: #fff;
+}
+.dark th {
+  background: var(--gorb-green-light);
+  color: #fff;
+}
+.dark tr:nth-child(even) td {
+  background: #232d25;
+}
+.dark tr:hover td {
+  background: var(--gorb-green-dark);
+  color: #181f1a;
+}
