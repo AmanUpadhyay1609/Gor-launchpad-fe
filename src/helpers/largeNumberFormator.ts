@@ -7,5 +7,6 @@ export function formatNumber(num) {
     } else if (num >= 1e3) {
       return (num / 1e3) + 'K'; // Format as thousands
     }
+    
     return num.toString(); // Return as is for smaller numbers
   }
